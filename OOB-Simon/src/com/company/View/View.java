@@ -3,17 +3,16 @@ package com.company.View;
 import com.company.Controller.Controller;
 import com.company.Exception.WrongInputException;
 import com.company.Model.Position;
+import com.company.Model.Runde;
 import com.company.Model.Spiel;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class View {
 
     private Spiel spiel;
+    // Muss View den Controller kennen? Übergabe erfolgt über get Methoden.
     private Controller controller;
     private Scanner scanner;
-    private List previousRounds;
 
 
     public View(Spiel spiel, Controller controller) {
@@ -23,34 +22,25 @@ public class View {
     }
 
     public void showPreviosRounds() {
+        //ToDo: Es werden die Positionen angezeigt und nicht die abgespeicherten Zufallszahlen...
         if (spiel.getRoundNumber() > 0) {
             System.out.print("Previous Rounds:");
             for (int i = 0; i < spiel.getPreviosPositions().size(); i++) {
-                Position position = (Position) spiel.getPreviosPositions().get(i);
-                System.out.println(position.getPositionNummer());
-
+                Runde position = (Runde) spiel.getPreviosPositions().get(i);
+                System.out.println(position.getPosition());
             }
-
         }
-
     }
 
     public void showNewRound() {
         System.out.print("New Round: ");
-        System.out.println(spiel.getNewPosition());
+
+        System.out.println(spiel.getCurrentPosition());
     }
 
     public String getInput() {
         System.out.print("Please enter lamp number: ");
         return scanner.nextLine();
-    }
-
-    public boolean validateInput() {
-        getInput();
-        int pressedPosition = spiel.getPressedPosition();
-        if (pressedPosition >= 1 && pressedPosition <= 4) {
-        }
-        return true;
     }
 
     public int getPressedPosition() throws WrongInputException {

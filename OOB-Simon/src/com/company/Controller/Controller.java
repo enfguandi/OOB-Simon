@@ -21,7 +21,7 @@ public class Controller {
         int pressedPosition = 0;
 
         while (spiel.hasNextRound()) {
-            view.showPreviosRounds();
+//            view.showPreviosRounds();
             spiel.startNewRound();
             view.showNewRound();
 

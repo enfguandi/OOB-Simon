@@ -15,4 +15,12 @@ public class Runde {
     public int getRundennummer(){
         return this.rundenNummer;
     }
+
+    public Position getPosition(){
+        return this.position;
+    }
+
+    public int getPositionNumber(){
+        return this.position.getPositionNummer();
+    }
 }

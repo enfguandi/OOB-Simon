@@ -14,6 +14,7 @@ public class Spiel {
 
     public Spiel(int numberOfRounds) {
         this.positions = new ArrayList<>();
+        this.previousRounds = new ArrayList<>();
         this.numberOfRounds = numberOfRounds;
         Position position = new Position(1);
         positions.add(position);
@@ -26,12 +27,11 @@ public class Spiel {
     }
 
     public List getPreviosPositions() {
-        return this.positions;
+        return this.previousRounds;
     }
 
-    public int getNewPosition() {
-        // ToDo: Fehlt die richtige Zuweisung zur Position!!!!!!!!!!
-        return positions.get(1).getPositionNummer();
+    public int getCurrentPosition() {
+        return currentRound.getPositionNumber();
     }
 
     public void generateNewRound() {
@@ -45,11 +45,13 @@ public class Spiel {
 
     public boolean checkPressedPosition(){
         // ToDo: tut nicht!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        previousRounds.add(currentRound);
-        int rn = currentRound.getRundennummer();
-        int prn = previousRounds.get(rn).getRundennummer();
 
-        if (prn == pressedPosition){
+        int rn = currentRound.getRundennummer();
+        previousRounds.add(currentRound);
+        rn--;
+        int pnr = previousRounds.get(rn).getPosition().getPositionNummer();
+
+        if (pnr == pressedPosition){
             return true;
         }else {
             return false;
@@ -78,6 +80,7 @@ public class Spiel {
             currentRound = new Runde(++roundNumber);
         } catch (NullPointerException e) {
             currentRound = new Runde(1);
+
         }
     }
 

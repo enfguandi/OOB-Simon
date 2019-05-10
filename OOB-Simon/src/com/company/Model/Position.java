@@ -30,9 +30,11 @@ public class Position {
         return this.tasteGedrueckt;
     }
 
+    /* Nicht nötig!?
     public void setPositionNummer() {
         this.positionNummer = ThreadLocalRandom.current().nextInt(1, 4 + 1);
     }
+*/
 
     public int getPositionNummer() {
         return this.positionNummer;
