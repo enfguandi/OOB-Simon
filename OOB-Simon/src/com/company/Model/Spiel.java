@@ -9,7 +9,7 @@ public class Spiel {
     private int numberOfRounds;
     private List<Runde> previousRounds;
     private Runde currentRound;
-//    private List<Position> positions;
+    //    private List<Position> positions;
     private int pressedPosition;
 
     public Spiel(int numberOfRounds) {
@@ -44,13 +44,11 @@ public class Spiel {
     }
 
     // Validates the previous and the new positions pressed by the user with a list
-    public boolean checkPressedPosition() {
-        previousRounds.add(currentRound);
-        for (int rn = 0; rn < currentRound.getRundennummer(); rn++) {
-            int pnr = previousRounds.get(rn).getPosition().getPositionNummer();
-            if (pnr != pressedPosition) {
-                return false;
-            }
+    public boolean checkPressedPosition(int round) {
+        int r = --round;
+        int pnr = previousRounds.get(r).getPosition().getPositionNummer();
+        if (pnr != pressedPosition) {
+            return false;
         }
         return true;
     }
@@ -81,6 +79,8 @@ public class Spiel {
             currentRound = new Runde(++roundNumber);
         } catch (NullPointerException e) {
             currentRound = new Runde(1);
+        } finally {
+            previousRounds.add(currentRound);
         }
     }
 

@@ -33,7 +33,7 @@ public class Controller {
                     startGame();
                 }
                 spiel.setPressedPosition(pressedPosition);
-                if (!spiel.checkPressedPosition()){
+                if (!spiel.checkPressedPosition(i)){
                     break;
                 }
             }
