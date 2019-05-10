@@ -1,6 +1,5 @@
 package com.company.Model;
 
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Position {
 

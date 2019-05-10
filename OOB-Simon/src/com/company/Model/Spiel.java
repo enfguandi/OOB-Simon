@@ -9,14 +9,14 @@ public class Spiel {
     private int numberOfRounds;
     private List<Runde> previousRounds;
     private Runde currentRound;
-    private List<Position> positions;
+//    private List<Position> positions;
     private int pressedPosition;
 
     public Spiel(int numberOfRounds) {
-        this.positions = new ArrayList<>();
+//        this.positions = new ArrayList<>();
         this.previousRounds = new ArrayList<>();
         this.numberOfRounds = numberOfRounds;
-        Position position = new Position(1);
+/*        Position position = new Position(1);
         positions.add(position);
         position = new Position(2);
         positions.add(position);
@@ -24,48 +24,48 @@ public class Spiel {
         positions.add(position);
         position = new Position(4);
         positions.add(position);
+        */
     }
 
+    // Gives a List of the previous positions back
     public List getPreviosPositions() {
         return this.previousRounds;
     }
 
+    // Gives the current position back
     public int getCurrentPosition() {
         return currentRound.getPositionNumber();
     }
 
-    public void generateNewRound() {
-
-    }
-
+    // Sets the position pressed by the user
     public void setPressedPosition(int position) {
-        this.pressedPosition  = position;
+        this.pressedPosition = position;
 
     }
 
-    public boolean checkPressedPosition(){
-        // ToDo: tut nicht!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        int rn = currentRound.getRundennummer();
+    // Validates the previous and the new positions pressed by the user with a list
+    public boolean checkPressedPosition() {
         previousRounds.add(currentRound);
-        rn--;
-        int pnr = previousRounds.get(rn).getPosition().getPositionNummer();
-
-        if (pnr == pressedPosition){
-            return true;
-        }else {
-            return false;
+        for (int rn = 0; rn < currentRound.getRundennummer(); rn++) {
+            int pnr = previousRounds.get(rn).getPosition().getPositionNummer();
+            if (pnr != pressedPosition) {
+                return false;
+            }
         }
+        return true;
     }
 
+    // Returns the position pressed by the user
     public int getPressedPosition() {
         return this.pressedPosition;
     }
 
+    // returns the max number of rounds
     public int getNumberOfRounds() {
         return this.numberOfRounds;
     }
 
+    // checks if the currend round is smaller than the max number of rounds
     public boolean hasNextRound() {
         try {
             return currentRound.getRundennummer() < numberOfRounds;
@@ -74,29 +74,22 @@ public class Spiel {
         }
     }
 
-    public void startNewRound() {
+    // starts a new round
+    public void generateNewRound() {
         try {
             int roundNumber = currentRound.getRundennummer();
             currentRound = new Runde(++roundNumber);
         } catch (NullPointerException e) {
             currentRound = new Runde(1);
-
         }
     }
 
-
-    public List getListOfRounds(){
-        return previousRounds;
-    }
-
-    public int getRoundNumber(){
+    // returns the currend round number
+    public int getRoundNumber() {
         try {
             return currentRound.getRundennummer();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return 0;
         }
-
     }
-
-
 }

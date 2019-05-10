@@ -22,7 +22,7 @@ public class Controller {
 
         while (spiel.hasNextRound()) {
 //            view.showPreviosRounds();
-            spiel.startNewRound();
+            spiel.generateNewRound();
             view.showNewRound();
 
             for (int i = 1; i <= spiel.getRoundNumber(); i++) {

@@ -2,7 +2,6 @@ package com.company.View;
 
 import com.company.Controller.Controller;
 import com.company.Exception.WrongInputException;
-import com.company.Model.Position;
 import com.company.Model.Runde;
 import com.company.Model.Spiel;
 import java.util.Scanner;
