@@ -5,68 +5,93 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Spiel {
-    private int anzahlRunden;
-    private List<Runde> vorherigeRunden;
-    private Runde aktuelleRunde;
-    private List<Position> positionen;
+
+    private int numberOfRounds;
+    private List<Runde> previousRounds;
+    private Runde currentRound;
+    private List<Position> positions;
     private int pressedPosition;
 
-    public Spiel(int anzahlRunden){
-        this.positionen = new ArrayList<>();
-        this.anzahlRunden = anzahlRunden;
+    public Spiel(int numberOfRounds) {
+        this.positions = new ArrayList<>();
+        this.numberOfRounds = numberOfRounds;
         Position position = new Position(1);
-        positionen.add(position);
+        positions.add(position);
         position = new Position(2);
-        positionen.add(position);
+        positions.add(position);
         position = new Position(3);
-        positionen.add(position);
+        positions.add(position);
         position = new Position(4);
-        positionen.add(position);
+        positions.add(position);
     }
 
-    public List getPreviosPositions(){
-        return this.positionen;
+    public List getPreviosPositions() {
+        return this.positions;
     }
 
-    public int getNewPosition(){
-        return positionen.get(1).getPositionNummer();
+    public int getNewPosition() {
+        // ToDo: Fehlt die richtige Zuweisung zur Position!!!!!!!!!!
+        return positions.get(1).getPositionNummer();
     }
 
-    public void generateNewRound(){
+    public void generateNewRound() {
 
     }
 
-    public void setPressedPosition(int position){
-        this.pressedPosition = position;
+    public void setPressedPosition(int position) {
+        this.pressedPosition  = position;
+
     }
 
-    public int getPressedPosition(){
+    public boolean checkPressedPosition(){
+        // ToDo: tut nicht!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        previousRounds.add(currentRound);
+        int rn = currentRound.getRundennummer();
+        int prn = previousRounds.get(rn).getRundennummer();
+
+        if (prn == pressedPosition){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public int getPressedPosition() {
         return this.pressedPosition;
     }
 
-    public int getAnzahlRunden(){
-        return this.anzahlRunden;
+    public int getNumberOfRounds() {
+        return this.numberOfRounds;
     }
 
-    public boolean hasNextRound(){
+    public boolean hasNextRound() {
         try {
-            return aktuelleRunde.getRundennummer() < anzahlRunden;
-        }catch (NullPointerException e){
+            return currentRound.getRundennummer() < numberOfRounds;
+        } catch (NullPointerException e) {
             return true;
         }
-
-
     }
 
-    public void startNewRound(){
+    public void startNewRound() {
         try {
-            vorherigeRunden.add(aktuelleRunde);
-            int runde = aktuelleRunde.getRundennummer();
-            aktuelleRunde = new Runde(++runde);
-        }catch (NullPointerException e){
-            aktuelleRunde = new Runde(1);
+            int roundNumber = currentRound.getRundennummer();
+            currentRound = new Runde(++roundNumber);
+        } catch (NullPointerException e) {
+            currentRound = new Runde(1);
         }
+    }
 
+
+    public List getListOfRounds(){
+        return previousRounds;
+    }
+
+    public int getRoundNumber(){
+        try {
+            return currentRound.getRundennummer();
+        }catch (NullPointerException e){
+            return 0;
+        }
 
     }
 
