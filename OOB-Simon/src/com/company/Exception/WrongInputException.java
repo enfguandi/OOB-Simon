@@ -1,5 +1,6 @@
 package com.company.Exception;
 
+import com.company.Controller.Controller;
 import com.company.Controller.Main;
 
 public class WrongInputException extends Exception{

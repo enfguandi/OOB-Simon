@@ -1,42 +1,44 @@
 package com.company.Controller;
 
 import com.company.Exception.WrongInputException;
-import com.company.Model.Spiel;
+import com.company.Model.Round;
+import com.company.Model.Game;
 import com.company.View.View;
 
 public class Controller {
 
-    private Spiel spiel;
+    private Game game;
     private View view;
 
 
     public Controller() {
-        this.spiel = new Spiel(10);
-        this.view = new View(spiel, this);
-
+        this.game = new Game(10);
+        this.view = new View(game);
     }
 
     public void startGame() {
 
-        int pressedPosition = 0;
+        int pressedPosition;
+        try {
+            while (game.hasNextRound()) {
+                view.showPreviosRounds();
+                game.generateNewRound();
+                view.showNewRound();
 
-        while (spiel.hasNextRound()) {
-//            view.showPreviosRounds();
-            spiel.generateNewRound();
-            view.showNewRound();
-
-            for (int i = 1; i <= spiel.getRoundNumber(); i++) {
-                try {
+                for (Round round : game.getPreviousRounds()) {
                     pressedPosition = view.getPressedPosition();
-                } catch (WrongInputException e) {
-                    System.out.println("Wrong input Exception...");
-                    startGame();
-                }
-                spiel.setPressedPosition(pressedPosition);
-                if (!spiel.checkPressedPosition(i)){
-                    break;
+                    if (!round.checkPressedPosition(pressedPosition)) {
+                        view.restartGameMessage();
+                        Controller x = new Controller();
+                        x.startGame();
+                    }
                 }
             }
+        } catch (WrongInputException e) {
+            System.out.println("Wrong input Exception... Restart!");
+            System.out.println();
+            Controller x = new Controller();
+            x.startGame();
         }
     }
 }

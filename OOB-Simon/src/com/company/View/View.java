@@ -1,40 +1,32 @@
 package com.company.View;
 
-import com.company.Controller.Controller;
 import com.company.Exception.WrongInputException;
-import com.company.Model.Runde;
-import com.company.Model.Spiel;
+import com.company.Model.Round;
+import com.company.Model.Game;
 import java.util.Scanner;
 
 public class View {
 
-    private Spiel spiel;
-    // Muss View den Controller kennen? Übergabe erfolgt über get Methoden.
-    private Controller controller;
+    private Game game;
     private Scanner scanner;
 
 
-    public View(Spiel spiel, Controller controller) {
-        this.controller = controller;
-        this.spiel = spiel;
+    public View(Game game) {
+        this.game = game;
         scanner = new Scanner(System.in);
     }
 
     public void showPreviosRounds() {
-        //ToDo: Es werden die Positionen angezeigt und nicht die abgespeicherten Zufallszahlen...
-        if (spiel.getRoundNumber() > 0) {
-            System.out.print("Previous Rounds:");
-            for (int i = 0; i < spiel.getPreviosPositions().size(); i++) {
-                Runde position = (Runde) spiel.getPreviosPositions().get(i);
-                System.out.println(position.getPosition());
-            }
+        System.out.print("Previous Rounds:");
+        for (Round previousRounds : game.getPreviousRounds()) {
+            System.out.print(previousRounds.getPosition().getPositionNumber() + ", ");
         }
+        System.out.println();
     }
 
     public void showNewRound() {
         System.out.print("New Round: ");
-
-        System.out.println(spiel.getCurrentPosition());
+        System.out.println(game.getCurrentRound().getPosition().getPositionNumber());
     }
 
     public String getInput() {
@@ -56,5 +48,10 @@ public class View {
         } else {
             throw new WrongInputException();
         }
+    }
+
+    public void restartGameMessage() {
+        System.out.println("Wrong number! Restart...");
+        System.out.println();
     }
 }
